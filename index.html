@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>GCO | Recomendador</title>
+    
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="./css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  </head>
+
+  <body>
+    <div class="container center-h">
+      <div class="Titulo">
+        <h2>Sistemas de recomendación. Métodos de Filtrado Colaborativo</h2>
+      </div>
+    </div>
+    
+    <div class="Parametros center-h center-v">
+        <label for="metrica">Métrica</label>
+        <select name="metrica">
+          <option value="Correlación de Pearson" selected>Correlación de Pearson</option>
+          <option value="Distancia coseno">Distancia coseno</option>
+          <option value="Distancia Euclídea">Distancia Euclídea</option>
+        </select>
+
+        <label for="nVecinos">Número de vecinos</label>
+        <input name="nVecinos" value="3">
+
+        <label for="prediccion">Predicción</label>
+        <select name="prediccion">
+          <option value="Predicción simple" selected>Correlación de Pearson</option>
+          <option value="Diferencia con la media">Distancia coseno</option>
+        </select>
+    </div>
+    <div class="Ficheros center-h center-v">
+      <br>
+      <label for="fichero">Seleccione fichero de entrada: </label>
+      <input type="file" id="fichero" accept=".txt">
+    </div>
+    
+    <div class="preview center-h center-v" center>
+      <table id="matrix"></table>
+    </div>
+    
+    <div class="Calcular center-h center-v" center>
+      <br>
+      <button id="calcular">Calcular</button>
+    </div>
+
+    <div class="Resultado center-h center-v" center>
+      <table id="result"></table>
+    </div>
+
+      <!--  Scripts-->
+    <script src="./src/lector.js"></script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+.center-v {
+  align-items: center;
+  text-align: center;
+}
+
+.center-h {
+  justify-content: center;
+  text-align: center;
+}
