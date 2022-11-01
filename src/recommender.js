@@ -9,6 +9,7 @@ class Recommender {
         this.matrix = matrix;
         this.prediction = prediction;
         this.metric = metric;
+        this.completeMatrix = []
         this.numberNeighbors = numNeighbors;
     }
 
@@ -40,8 +41,7 @@ class Recommender {
 
     // Calcula la matriz de similitud
     setSimMatrix() {
-        for(let i = 0; i < this.matrix.length; i++) 
-        {
+        for(let i = 0; i < this.matrix.length; i++){
             let row = [];
             for(let j = 0; j < this.matrix.length; j++)
                 row.push(this.sim(i, j).toFixed(2));
@@ -84,7 +84,7 @@ class Recommender {
         let corr = sum1 / (Math.sqrt(sum2) * Math.sqrt(sum3));
         
         if(corr < 0)
-            corr = (corr - (-1)) / (1 - (-1));
+          corr = (corr + 1) / 2;
 
         return corr;
     }
@@ -145,7 +145,7 @@ class Recommender {
         else
             neighbors.sort(function(a, b) { return a[1] - b[1]; });  
 
-//        return neighbors;
+        return neighbors;
     }
 
     // Predicción simple
@@ -160,7 +160,8 @@ class Recommender {
             sum1 += neighbors[i][1] * this.matrix[neighbors[i][0]][item];
             sum2 += Math.abs(neighbors[i][1]);    
         }
-
+        process.stdout.write("Predicción del usuario u[" + (user+1) + "] con simple en el item[" + (item+1) +  "] = ");
+        process.stdout.write( sum1.toFixed(2) + " / " + sum2.toFixed(2) + " = " + (sum1 / sum2).toFixed(2) + "\n");
         return sum1 / sum2;
     }
 
@@ -178,6 +179,9 @@ class Recommender {
             sum2 += Math.abs(neighbors[i][1]);
         }
 
+        process.stdout.write("Predicción del usurio u[" + user + 1 + "] con el item " + item + ": " + avgUser.toFixed(2) + "(" + sum1.toFixed(2) + " / " + sum2.toFixed(2) + ") = " + (avgUser + (sum1 / sum2)).toFixed(2));     
+        console.log();   
+
         return avgUser + (sum1 / sum2);
     }
 
@@ -189,13 +193,31 @@ class Recommender {
         else
             return this.diffToAvg(user, item);
     }
+    
+    showUsedNeighbors(nNeighbors) {
+      console.log(" ---------- Vecinos similares ----------");
+      let actual = [];
+      for (let i = 0; i < this.matrix.length; i++) {
+        for (let j = 0; j < this.matrix[i].length; j++) {
+          if(this.matrix[i][j] === -1){
+            actual = this.closerNeighbors(i, j);
+            actual = actual.slice(0, nNeighbors);
+            process.stdout.write("Para calcular el item" + (j + 1) + " del usuario [u" + (i + 1) + "] se han usado los vecinos: { ");
+            for (let k = 0; k < actual.length; k++){
+              process.stdout.write("u" + actual[k][0] + " ");
+            }
+            console.log("}");
+          }
+        }
+      }
+    }
+
 
     // Rellena la matriz
     fill()
     {
         // Mostrar matriz original
         this.showMatrix(this.matrix, "Matriz original");
-        let completeMatrix = [];
 
         // Creamos la matriz de similitud
         this.setSimMatrix();
@@ -205,7 +227,7 @@ class Recommender {
         // Compiamos la matriz en completeMatrix
         // No lo hacemos con el operador '=' porque se copia por referencia
         for(let i = 0; i < this.matrix.length; i++) 
-            completeMatrix[i] = this.matrix[i].slice();
+            this.completeMatrix[i] = this.matrix[i].slice();
 
         // Completamos la matriz resultante
         for(let i = 0; i < this.matrix.length; i++) 
@@ -213,33 +235,16 @@ class Recommender {
             for(let j = 0; j < this.matrix[i].length; j++) 
             {
                 if(this.matrix[i][j] === -1)
-                    completeMatrix[i][j] = this.predict(i, j).toFixed(2);
+                    this.completeMatrix[i][j] = this.predict(i, j).toFixed(2);
                 else 
-                    completeMatrix[i][j] = this.matrix[i][j];
+                    this.completeMatrix[i][j] = this.matrix[i][j];
             }
         }
-        //console.log(completeMatrix);
-        this.showMatrix(completeMatrix, "Matriz completa");
+
+        this.showUsedNeighbors(this.numberNeighbors);
+        this.showMatrix(this.completeMatrix, "Matriz completa");
     }
 
-    showSimliarNeighbors(nNeighbors) {
-      let actual = [];
-      for (let i = 0; i < this.matrix.length; i++) {
-        text += '<p>En el proceso de predicción realizado, el <b> Usuario'+ (array[i][0] + 1) +
-        '</b> con <b>item' + (array[i][1] + 1) +
-        '</b>, tiene como vecinos más próximos: <b> ';
-
-        for (let j = 0; j < this.matrix[i].length; j++) {
-          actual = this.closerNeighbors(i, j);
-          procces.stdout.write("El usuario " + (i + 1) + " tiene como vecinos mas proximos: ");
-          for (let k = 0; k < this.matrix[i].length; k++) {
-            procces.stdout.write("u" + actual[k][]);
-          }
-        }
-
-        text += '</b>.</p>';
-    }
-    }
 }
 
 function fileToMatrix(fileName)
