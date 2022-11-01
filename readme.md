@@ -17,3 +17,11 @@ Implementación de un sistema de recomendación siguiendo el sistema de filtrado
 
 La práctica la hemos llevado a cabo utilizando el lenguaje **Javascript**, y para la recogida de datos hemos desplegado una página sencilla realizada en HTML. Los datos los procesamos usando Javascript de nuevo.
 Cabe destacar que para dar estilo al HTML, empleamos hojas de estilo **CSS**.
+
+<a name="id2"></a>
+## 2. Directorios
+
+* css
+* ejemplos
+* src
+* index.html
