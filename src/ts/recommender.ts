@@ -15,7 +15,16 @@ class Recommender {
     // Media
     avg(arr: number[]): number
     {
-        return arr.reduce((a, b) => a + b, 0) / arr.length;
+        let sum: number = 0;
+        let length: number = 0;
+        for(let i: number = 0; i < arr.length; ++i)
+            if(arr[i] >=0)
+            {
+                sum += arr[i];
+                length++;
+            }
+
+        return sum / length;
     }
 
     // Similitud entre dos usuarios
@@ -43,8 +52,25 @@ class Recommender {
     // Correlación de Pearson
     pearson(user1: number, user2: number): number
     {
-        // Falta código
-        return 0;
+        let user1Array: number[] = this.matrix[user1];
+        let user2Array: number[] = this.matrix[user2];
+        let avg1: number = this.avg(user1Array);
+        let avg2: number = this.avg(user2Array);
+        let sum1: number = 0;
+        let sum2: number = 0;
+        let sum3: number = 0;
+
+        for(let i: number = 0; i < user1Array.length; ++i)
+        {
+            if(user1Array[i] >= 0 && user2Array[i] >= 0)
+            {
+                sum1 += (user1Array[i] - avg1) * (user2Array[i] - avg2);
+                sum2 += Math.pow(user1Array[i] - avg1, 2);
+                sum3 += Math.pow(user2Array[i] - avg2, 2);
+            }
+        }
+
+        return sum1 / (Math.sqrt(sum2) * Math.sqrt(sum3));
     }
 
     // Distancia Euclídea
@@ -103,9 +129,11 @@ class Recommender {
         else
             neighbors.sort(function(a, b) { return a[1] - b[1]; });  
 
-        return neighbors;
+        //console.log(neighbors);
+        return neighbors.slice(0, 2);
     }
 
+    // Predicción simple
     simple(user: number, item: number): number
     {
         let neighbors: number[][] = this.closerNeighbors(user, item);
@@ -121,13 +149,24 @@ class Recommender {
         return sum1 / sum2;
     }
 
-    //
+    // Predicción considerando la diferencia con la media
     diffToAvg(user: number, item: number): number
     {
-        // Falta código
-        return 0;
+        let neighbors: number[][] = this.closerNeighbors(user, item);
+        let avgUser: number = this.avg(this.matrix[user]);
+        let sum1: number = 0;
+        let sum2: number = 0;
+
+        for(let i: number = 0; i < neighbors.length; ++i)
+        {
+            sum1 += neighbors[i][1] * (this.matrix[neighbors[i][0]][item] - this.avg(this.matrix[neighbors[i][0]]));
+            sum2 += Math.abs(neighbors[i][1]);
+        }
+
+        return avgUser + (sum1 / sum2);
     }
 
+    // Predicción
     predict(user: number, item: number): number
     {
         if(this.prediction == Prediction.simple)
@@ -136,7 +175,8 @@ class Recommender {
             return this.diffToAvg(user, item);
     }
 
-    transformMatrix(): number[][]
+    // Rellena la matriz
+    fill(): number[][]
     {
         let completeMatrix: number[][] = [];
 
@@ -225,4 +265,4 @@ else
 let matrix: number[][] = fileToMatrix(fileName);
 
 let recommender = new Recommender(matrix, prediction, metric);
-console.log(recommender.transformMatrix());
+console.log(recommender.fill());
