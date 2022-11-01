@@ -41,10 +41,10 @@ Para utilizar el sistema recomendador debe seguir los siguientes pasos:
 2. Abrir una terminal que disponga de node.js y situarse en el directorio del proyecto
 3. Ejecutar el comando **node recomendador/src/console.js <matriz_de_prueba> <predicción> <métrica> <numero_vecinos>** 
 * Donde: 
-  * <matriz_de_prueba>: Nombre del fichero que contiene la matriz de prueba
-  * <predicción>: Número que corresponde al tipo de predicción --> (0) Predicción simple | (1) Diferencia con la media 
-  * <métrica>: Número que corresponde al tipo de métrica --> (0) Pearson | (1) Distancia Euclídea | (2) Distancia Coseno
-  * <numero_vecinos>: Corresponde al número de vecinos, que como mínimo es 3
+  * **<matriz_de_prueba>**: Nombre del fichero que contiene la matriz de prueba
+  * **<predicción>**: Número que corresponde al tipo de predicción --> (0) Predicción simple | (1) Diferencia con la media 
+  * **<métrica>**: Número que corresponde al tipo de métrica --> (0) Pearson | (1) Distancia Euclídea | (2) Distancia Coseno
+  * **<numero_vecinos>**: Corresponde al número de vecinos, que como mínimo es 3
 
 
 <a name="id4"></a>
