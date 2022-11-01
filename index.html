@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="./css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   </head>
-
+  
   <body>
     <div class="container center-h">
       <div class="Titulo">
@@ -19,21 +19,21 @@
     </div>
     
     <div class="Parametros center-h center-v">
-        <label for="metrica">Métrica</label>
-        <select name="metrica">
-          <option value="Correlación de Pearson" selected>Correlación de Pearson</option>
-          <option value="Distancia coseno">Distancia coseno</option>
-          <option value="Distancia Euclídea">Distancia Euclídea</option>
-        </select>
-
-        <label for="nVecinos">Número de vecinos</label>
-        <input name="nVecinos" value="3">
-
-        <label for="prediccion">Predicción</label>
-        <select name="prediccion">
-          <option value="Predicción simple" selected>Correlación de Pearson</option>
-          <option value="Diferencia con la media">Distancia coseno</option>
-        </select>
+      <label for="metrica">Métrica</label>
+      <select name="metrica" id="metrica">
+        <option value="Correlación de Pearson" selected>Correlación de Pearson</option>
+        <option value="Distancia coseno">Distancia coseno</option>
+        <option value="Distancia Euclídea">Distancia Euclídea</option>
+      </select>
+      
+      <label for="nVecinos">Número de vecinos</label>
+      <input name="nVecinos" value="3">
+      
+      <label for="prediccion">Predicción</label>
+      <select name="prediccion">
+        <option value="Predicción simple" selected>Predicción simple</option>
+        <option value="Diferencia con la media">Diferencia con la media</option>
+      </select>
     </div>
     <div class="Ficheros center-h center-v">
       <br>
@@ -49,12 +49,14 @@
       <br>
       <button id="calcular">Calcular</button>
     </div>
-
+    
     <div class="Resultado center-h center-v" center>
       <table id="result"></table>
     </div>
-
-      <!--  Scripts-->
-    <script src="./src/lector.js"></script>
+    
+    <!--  Scripts-->
+    <script type="module" src="./src/lector.js"></script>
+    <script type="module" src="./src/main.js"></script>
+    
   </body>
-</html>
+  </html>

@@ -9,6 +9,7 @@
 * [Introducción](#id1)
 * [Directorios](#id2)
 * [Instrucciones](#id3)
+* [Descripción del código](#item4)
 
 <a name="id1"></a>
 ## 1. Introducción 
@@ -21,7 +22,15 @@ Cabe destacar que para dar estilo al HTML, empleamos hojas de estilo **CSS**.
 <a name="id2"></a>
 ## 2. Directorios
 
-* css
-* ejemplos
-* src
-* index.html
+* [/css](https://github.com/AlvaroRGZ/GCO/tree/main/css): Directorio con las hojas deestilo empleadas 
+* [/ejemplos](https://github.com/AlvaroRGZ/GCO/tree/main/ejemplos): Directorio que contiene una serie de ejemplos de matrices de utilidad para usar en el sistema recomendador
+* [/src](https://github.com/AlvaroRGZ/GCO/tree/main/src): Directorio que contiene los scripts empleados para llevar a cabo el sistema de recomendación
+* [index.html](https://github.com/AlvaroRGZ/GCO/tree/main/index.html): Fichero HTML que contiene el formulario para procesar los datos de los ficheros y realizar los cálculos
+
+<a name="id3"></a>
+## 3. Instrucciones 
+
+<a name="id4"></a>
+## 4. Descripción del código
+
+
